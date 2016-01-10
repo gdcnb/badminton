@@ -1,6 +1,8 @@
-javascript:void function (global, date) {
+javascript:void function (global, date, fieldNum) {
     var lockAutoField = false; //自动选择场地锁
     var intervalTime = null;
+
+    fieldNum = parseInt(fieldNum); //转化为整数
 
     //重写群体通的query函数
     global.query = function () {
@@ -45,8 +47,9 @@ javascript:void function (global, date) {
                         ];
 
                         var matchFields = [];
-                        fieldList.forEach(function(group){
+                        fieldList.forEach(function(group, index){
                             var field = {};
+                            field.number = index + 1;//场地号
                             field.playerList = [];
                             field.weight = 0; //球场权重
                             group.forEach(function($item, index){
@@ -61,19 +64,40 @@ javascript:void function (global, date) {
                         });
 
                         if(matchFields.length) {
-                            //根据权重从大到小进行排列
-                            matchFields.sort(function(a,b){
-                                return a.weight < b.weight;
-                            });
+                            var target = null;
 
-                            var target = matchFields[0]; //只拿第一个场地
-                            target.playerList.forEach(function($item) {
-                                $item.find('>div').trigger('click');
-                            });
+                            if(fieldNum > 0) { //根据指定的场地来选择
+                                var appointField = matchFields.filter(function(item) {
+                                    return item.number === fieldNum;
+                                });
 
-                            if($('#paymentOrder').find('tr').length > 1) {
-                                //进入下步
-                                global.next();
+                                if(appointField.length === 0) {
+                                    alert(fieldNum +'号场地已经被抢，请手动选择其它的免费场');
+                                } else {
+                                    target = appointField[0];
+                                }
+                            } else {
+                                //自动匹配根据权重从大到小进行排列
+                                matchFields.sort(function(a,b){
+                                    return a.weight < b.weight;
+                                });
+
+                                target = matchFields[0]; //只拿第一个场地
+                            }
+
+                            if(target) {
+                                if(target.playerList.length > 1) {
+                                    //只选择一个场地
+                                    target.playerList.shift();
+                                }
+                                target.playerList.forEach(function($item) {
+                                    $item.find('>div').trigger('click');
+                                });
+
+                                if($('#paymentOrder').find('tr').length > 1) {
+                                    // 进入下步
+                                    global.next();
+                                }
                             }
 
                         } else {
@@ -89,4 +113,4 @@ javascript:void function (global, date) {
     intervalTime = setInterval(function () {
         query()
     }, 100);
-}(window, prompt('请输入日期', '2016-01-12'));
+}(window, prompt('请输入日期', '2016-01-12'), prompt('请输入场地号', '1'));
