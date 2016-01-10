@@ -3,14 +3,17 @@
 使用说明：
  准备工作：
     1.将沙面羽毛球场的访问地址添加到浏览器书签(强烈建议使用Chrome浏览器)：http://www.quntitong.cn/sport/stadium/selectStadium.do?stadiumResourceId=402881b4419d12090141a1a5cd64001c
-    2.将我提供的 rob-field-min.js 的脚本文本内容也以书签的形式添加到Chrome浏览器。
-      MAC添加方法：用Chrome浏览器打开一个新的网页
+    2.将我提供的 rob-field-min.js 的脚本文本内容也以书签的形式添加到浏览器。
+      Chrome浏览器添加方法：
+      》用Chrome浏览器打开一个新的网页
       》在地址栏上点击添加书签的星星图标
       》弹出添加书签的弹框
       》书签名字 写：沙面羽毛球抢地盘插件
       》书签文件夹 点击下拉框选择 选择其它文件夹 选项
-      》弹出书签编辑弹框
-      》在网址输入框上把代码粘贴上去并保存生成 沙面羽毛球抢地盘插件 书签
+      》弹出修改书签弹框
+      》在 网址输入框 上把代码粘贴上去并保存生成 沙面羽毛球抢地盘插件 书签
+
+
 
  操作步骤：
     1.访问 http://www.quntitong.cn/sport/stadium/selectStadium.do?stadiumResourceId=402881b4419d12090141a1a5cd64001c
